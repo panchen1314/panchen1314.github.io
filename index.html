@@ -247,7 +247,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/20/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2020/05/20/hello-world/" itemprop="url">ES6新特性 浅析总结</a></h1>
         
 
         <div class="post-meta">
@@ -299,19 +299,164 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+            <h2 id="1、变量声明，let、var、const的区别"><a href="#1、变量声明，let、var、const的区别" class="headerlink" title="1、变量声明，let、var、const的区别"></a><strong>1、变量声明，let</strong>、<strong>var</strong>、<strong>const的区别</strong></h2><h3 id="1-let"><a href="#1-let" class="headerlink" title="(1)let"></a>(1)<strong>let</strong></h3><p>​    let所声明的变量只在let命令所在的代码块内有效。（块级作用域）</p>
+<p>​    let命令不存在变量提升</p>
+<p>​    let命令不允许重复定义但是var可以而且后定义的变量会覆盖掉前面的变量，因此，不能在函数内部重新声明参数，但是可以在函数内部不同块级作用域内声明同名参数。</p>
+<p>​    let声明变量存在暂时性死区（即变量会绑定某个区域，不受外部影响）</p>
+<p>​    ES6 明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。</p>
+<p>​    总之，在代码块内，使用let命令声明变量之前，该变量都是不可用的。这在语法上，称为<strong>“暂时性死区”</strong>。（简称TDZ）</p>
+<h3 id="2-var"><a href="#2-var" class="headerlink" title="(2)var"></a>(2)<strong>var</strong></h3><p>​    var命令会发生“变量提升”现象，即变量可以在声明之前使用，值为undefined。按照一般的逻辑，变量应该在声明语句之后才可以使用，为了纠正这种现象，let命令改变了语法行为，它所声明的变量一定要在声明后使用，否则报错。</p>
+<p>​    </p>
+<h3 id="3-const"><a href="#3-const" class="headerlink" title="(3)const"></a>(3)<strong>const</strong></h3><p>​    const声明一个只读的常量。一旦声明，常量的值就不能改变。const声明的变量不得改变值，这意味着，const一旦声明变量，就必须立即初始化，不能留到以后赋值。</p>
+<p>​    const的作用域与let命令相同：只在声明所在的块级作用域内有效。</p>
+<p>​    const实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动。对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指向实际数据的指针，const只能保证这个指针是固定的（即总是指向另一个固定的地址），至于它指向的数据结构是不是可变的，就完全不能控制了。因此，将一个对象声明为常量必须非常小心。<strong>（重点）</strong></p>
+<h2 id="2、变量的解构赋值"><a href="#2、变量的解构赋值" class="headerlink" title="2、变量的解构赋值"></a><strong>2、变量的解构赋值</strong></h2><p>（1）含义：ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。</p>
+<p>（2）几种解构方式并举例说明</p>
+<p>​    1)数组的解构赋值</p>
+<p>​        （1）数组解构赋值【a,b,c】=[1,2,3]–&gt;let a=1,let b =2, let c=3</p>
+<p>​        （2）嵌套解构数组赋值</p>
+<p>​         例：let [header,…body]=[1,2,3,4,5,6,]</p>
+<pre><code>console.log(header);//输出1</code></pre><p>​              console.log(body);//输出[2,3,4,5,6]</p>
+<p>​    2)对象的解构赋值（对象名称：值）（**数组按照顺序解构赋值，而对象按照名字解构赋值）</p>
+<p>​     例：let {name,age}={name：”lily”,age:19}</p>
+<pre><code>console.log(name);
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+ console.log(age);</code></pre><p>​        （1）嵌套解构对象赋值</p>
+<p>​             例：let obj = {p: [  ‘Hello’,{ y: ‘World’ }  ] };</p>
+<p>​                  let { p: [x, { y }] } = obj;</p>
+<p>​                   x // 输出”Hello”</p>
+<p>​                   y // 输出”World”</p>
+<pre><code>（2）对象的解构默认值</code></pre><p>​              例：let {name,age}={name：”lily”,}</p>
+<p>​                    console.log(name);//输出lily</p>
+<p>​                     console.log(age);//输出19</p>
+<pre><code>let {name,age}={name：&quot;lily&quot;,age=20}</code></pre><p>​                    console.log(name);//输出lily</p>
+<p>​                     console.log(age);//输出20</p>
+<p>​    3)字符串解构赋值(把字符串拆开依次赋值给变量)</p>
+<p>​              例：const [a, b, c, d, e] = ‘hello’;</p>
+<p>​                a // 输出”h”</p>
+<p>​                b // 输出”e”</p>
+<p>​               c // 输出”l”</p>
+<p>​                d // 输出”l”</p>
+<p>​                e // 输出”o”</p>
+<p>​    4）数值和布尔类型的赋值（先把值转化为对象格式再进行赋值）</p>
+<p>​    5）函数参数的解构赋值（数组就用数组，对象就用对象）</p>
+<h2 id="3、函数的扩展"><a href="#3、函数的扩展" class="headerlink" title="3、函数的扩展"></a>3、函数的扩展</h2><h4 id="1、Es6与es5相比的好处："><a href="#1、Es6与es5相比的好处：" class="headerlink" title="1、Es6与es5相比的好处："></a>1、Es6与es5相比的好处：</h4><p>​    （1）es6允许为函数的参数设置默认值</p>
+<p>​    （2）es6比es5写法简洁</p>
+<p>​    （3）阅读代码的人可以很快意识到那些参数可以省略 </p>
+<p>​    （4）有利于代码优化</p>
+<h4 id="2-可以使用解构赋值"><a href="#2-可以使用解构赋值" class="headerlink" title="2.可以使用解构赋值"></a>2.可以使用解构赋值</h4><h4 id="3-定义了默认值的参数，应该是函数的尾参数"><a href="#3-定义了默认值的参数，应该是函数的尾参数" class="headerlink" title="3. 定义了默认值的参数，应该是函数的尾参数"></a>3. 定义了默认值的参数，应该是函数的尾参数</h4><h4 id="4-函数的length是返回值的个数。"><a href="#4-函数的length是返回值的个数。" class="headerlink" title="4.函数的length是返回值的个数。"></a>4.函数的length是返回值的个数。</h4><h4 id="5-rest参数（…-函数名）"><a href="#5-rest参数（…-函数名）" class="headerlink" title="5.rest参数（…+函数名）"></a>5.rest参数（…+函数名）</h4><p>​        rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。</p>
+<h4 id="6-严格模式"><a href="#6-严格模式" class="headerlink" title="6.严格模式"></a>6.严格模式</h4><p>​    （在es5中严格模式是代码规范，es6有改动），严格模式格式</p>
+<pre><code>Function doSomething(a,b){</code></pre><p>​        ‘use strict’；</p>
+<p>​    }</p>
+<p>​    （1）严格模式的规定：只要函数参数使用了默认值、解构赋值、或者扩展运算符，那么函数内部就不能显式设定为严格模式，否则会报错。</p>
+<p>​    （2）不能使用的解决办法：</p>
+<p>​        ①设定全局性的严格模式</p>
+<p>​        ②把函数包在一个无参数的立即执行函数里</p>
+<h2 id="4、箭头函数"><a href="#4、箭头函数" class="headerlink" title="4、箭头函数"></a>4、箭头函数</h2><p>​    <strong>用处：</strong>代替原来有返回值的函数</p>
+<p>​    <strong>分类：</strong></p>
+<p>​    1.无参箭头函数：var f1=()=&gt;”link”，相当于var f1=function(){return”link”}</p>
+<p>​    2.有参函数:</p>
+<p>​        1.单参</p>
+<p>​        2.多参 var f2=(a,b)=&gt;a+b 相当于var f2=function(a,b){return a+b}</p>
+<p>​    3.返回值是对象就用括号()括起来</p>
+<p>​        例：var f3=()=&gt;({name:”lily”,agr:19});</p>
+<p>​        console.log(f3());//返回值为对象、json格式</p>
+<pre><code>返回值是数组</code></pre><p>​    4.参数为对象形式的时候，进行解构赋值(数组解构和对象结构)</p>
+<p>​        例：var f4=({name,age})=&gt;”name:”+name+”–age”+age;</p>
+<p>​        console.log(f4({name:”tom”,age:19}))//如果参数是数组或对象，应先进行解构赋值</p>
+<p>​    <strong>注意事项：</strong></p>
+<p>​     (1) 函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。（箭头函数内this的指向不会发生改变，箭头函数内部有绑定this的机制）</p>
+<pre><code>(2) 不可以当作构造函数，即不可以使用new命令，否则会抛出一个错误。
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+(3) 不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。（箭头函数怎么样获得arguments的作用）
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+(4) 不可以使用yield命令，因此箭头函数不能用作 Generator 函数。（异步函数）</code></pre><p>​    <strong>应用场景：</strong></p>
+<p>​    遍历，算法，嵌套应用，利用迭代返回值</p>
+<h2 id="5、数组的扩展"><a href="#5、数组的扩展" class="headerlink" title="5、数组的扩展"></a>5、数组的扩展</h2><h4 id="1-新增的运算符（…）主要用于函数调用"><a href="#1-新增的运算符（…）主要用于函数调用" class="headerlink" title="1.新增的运算符（…）主要用于函数调用"></a>1.新增的运算符（…）主要用于函数调用</h4><h4 id="2-（…）的替代函数为apply-方法"><a href="#2-（…）的替代函数为apply-方法" class="headerlink" title="2.（…）的替代函数为apply()方法"></a>2.（…）的替代函数为apply()方法</h4><h4 id="3-复制数组"><a href="#3-复制数组" class="headerlink" title="3.复制数组"></a>3.复制数组</h4><h4 id="4-合并数组"><a href="#4-合并数组" class="headerlink" title="4.合并数组"></a>4.合并数组</h4><h4 id="5-解构赋值结合"><a href="#5-解构赋值结合" class="headerlink" title="5.解构赋值结合"></a>5.解构赋值结合</h4><h4 id="6-字符串"><a href="#6-字符串" class="headerlink" title="6.字符串"></a>6.字符串</h4><h4 id="7-数组中新增的方法"><a href="#7-数组中新增的方法" class="headerlink" title="7.数组中新增的方法"></a>7.数组中新增的方法</h4><p>​         (1)Array.from()：将对对象类真正的转化为数组</p>
+<p>​         (2) Array.of()：将一组值转化为数组</p>
+<p>​         (3) copyWithin()：将指定的成员复制到其他位置</p>
+<p>​         (4) findIndex()：筛选数组里面的内容（可以添加回调函数）</p>
+<p>​         (5) fill()：填充一个数组</p>
+<h4 id="8-数组的扁平化。"><a href="#8-数组的扁平化。" class="headerlink" title="8.数组的扁平化。"></a>8.数组的扁平化。</h4><p>​        数组扁平化是指将一个多维数组变为一维数组，比如：</p>
+<p>​        [1, [2, 3, [4, 5]]]  ——&gt;    [1, 2, 3, 4, 5]</p>
+<p>​                  es6的扩展运算符能将二维数组变为一维：</p>
+<p>​        [].concat(…[1, 2, 3, [4, 5]]);  // [1, 2, 3, 4, 5]</p>
+<h2 id="6、新增的属性symbol"><a href="#6、新增的属性symbol" class="headerlink" title="6、新增的属性symbol"></a>6、新增的属性symbol</h2><p>​    新增的数据类型，表示独一无二的值且要用方法来声明。</p>
+<p>它是一种新的原始数据类型，原始数据类型有：undefined、null、布尔值（Boolean）、字符串（String）、数值（Number）、对象（Object）、symbel。</p>
+<h2 id="7、Set-map"><a href="#7、Set-map" class="headerlink" title="7、Set,map"></a>7、<strong>Set,map</strong></h2><h4 id="1-set"><a href="#1-set" class="headerlink" title="1.set"></a>1.set</h4><p>​    (1)set数据结构，本身是数据结构。声明方式：let a = new Set();</p>
+<p>​    (2)set的特点</p>
+<p>​        ①.set结构几乎和数组结构相同，但是set结构不允许出现重复值，两个null也不行。</p>
+<p>​        例：const s = new Set();</p>
+<p>​    [2, 3, 5, 4, 5, 2, 2].forEach(x =&gt; s.add(x));</p>
+<p>​    for (let i of s) {</p>
+<p>​               console.log(i);</p>
+<p>​    }// 2 3 5 4</p>
+<p>​             ②数据类型不可转换</p>
+<p>​      (3)set的属性和方法</p>
+<p>​    属性:</p>
+<p>​    Set.prototype.constructor：构造函数，默认就是Set函数。</p>
+<p>​    Set.prototype.size：返回Set实例的成员总数</p>
+<p>​    方法:</p>
+<p>​    Set.prototype.add(value)：添加某个值，返回 Set 结构本身。</p>
+<p>​    Set.prototype.delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。</p>
+<p>​    Set.prototype.has(value)：返回一个布尔值，表示该值是否为Set的成员</p>
+<p>​    Set.prototype.clear()：清除所有成员，没有返回值。</p>
+<p>​    遍历方法：</p>
+<p>​    Set.prototype.keys()：返回键名的遍历器</p>
+<p>​    Set.prototype.values()：返回键值的遍历器</p>
+<p>​    Set.prototype.entries()：返回键值对的遍历器</p>
+<p>​    Set.prototype.forEach()：使用回调函数遍历每个成员</p>
+<p>*注：set结构的键名就是键值（两者是同一值），即keys和values的值一样</p>
+<h4 id="2、map"><a href="#2、map" class="headerlink" title="2、map"></a>2、map</h4><p>​    map的存储类似于对象，方式是值-值</p>
+<p>​        map创建方式：构造函数对象的方式。</p>
+<p>​        map的属性和方法</p>
+<p>​    属性：size 属性</p>
+<p>​    方法:</p>
+<p>​    map.prototype.set(key, value)设置值</p>
+<p>​        map.prototype.get(key, value)取值</p>
+<p>​        map.prototype.has(key)判断有没有</p>
+<p>​    map.prototype.delete(key)删除</p>
+<p>​        map.prototype.clear()</p>
+<p>​    遍历方法：</p>
+<p>​    Set.prototype.keys()：返回键名的遍历器</p>
+<p>​    Set.prototype.values()：返回键值的遍历器</p>
+<p>​    Set.prototype.entries()：返回键值对的遍历器</p>
+<p>​    Set.prototype.forEach()：使用回调函数遍历每个成员</p>
+<h2 id="8、Promise"><a href="#8、Promise" class="headerlink" title="8、Promise"></a>8、Promise</h2><p>​     Promise是一种新的解决方案，其实异步的（用对象形式解决异步处理问题）、</p>
+<p>   <strong>原理：</strong>他可以获得异步处理的消息</p>
+<p>   <strong>特点：</strong></p>
+<p>​    (1)promise的对象不受外界的影响</p>
+<p>​         (2)一旦状态改变，就不会再变了，任何时候都可以得到这个结果。(一旦状态改变就不可恢复)</p>
+<p>   <strong>缺点：</strong></p>
+<p>​    (1)一旦启用就不渴取消</p>
+<p>​    (2)如果不设置回调函数，那么promise内部抛出的错误就不会反映到外部</p>
+<p>​    (3)当他处于运行状态是，无法得知进展到了哪一个阶段</p>
+<p>   <strong>运行原理：</strong>一般对象：初始化—&gt;生成对象—&gt;返回结果(不调用也会出现结果) </p>
+<p>   <strong>基本用法:</strong> </p>
+<p>​       var p =new Promise;</p>
+<p>​           function(成功，失败)//步骤1</p>
+<p>​           成功—调用成功方法—返回成功结果 or 失败—调用失败方法—返回失败结果//步骤2</p>
+<p>   <strong>使用方法：</strong></p>
+<p>  Promise.prototype.then():给promise实例添加状态改变时的回调函数；</p>
+<p>​            （成功，失败，then…then）</p>
+<p>​     <strong>例：用链式写法写then方法</strong></p>
+<p>​    getJSON(“/posts.json”).then(function(json) {//成功接收的方法</p>
+<pre><code>return json.post;//必须加return，返回promise对象</code></pre><p>​    }).then(function(post) {//基于上一个函数起作用，解析post的内容(从成功状态到获得结果状态)</p>
+<p>​    });</p>
+<h2 id="9、Generator"><a href="#9、Generator" class="headerlink" title="9、Generator"></a>9、Generator</h2><p>​    <strong>异步编程解决方案</strong></p>
+<p>​    Generator 函数有多种理解角度。语法上，首先可以把它理解成，Generator 函数是一个状态机，封装了多个内部状态。</p>
+<p>​    执行 Generator 函数会返回一个遍历器对象，也就是说，Generator 函数除了状态机，还是一个遍历器对象生成函数。返回的遍历器对象，可以依次遍历 Generator 函数内部的每一个状态。</p>
+<p>​    形式上，Generator 函数是一个普通函数，但是有两个特征。一是，function关键字与函数名之间有一个星号；二是，函数体内部使用yield表达式，定义不同的内部状态（yield在英语里的意思就是“产出”）。</p>
+<p>function* helloWorldGenerator() {</p>
+<p>  yield ‘hello’;</p>
+<p>  yield ‘world’;</p>
+<p>  return ‘ending’;</p>
+<p>}</p>
+<p>var hw = helloWorldGenerator();</p>
+<p>​    <strong>异步处理的方法有哪些?</strong></p>
+<p>​    Es6之前：回调函数、 事件监听 、发布/订阅、 promise对象</p>
+<p>​    <strong>理解什么是异步？</strong></p>
+<p>​        一个任务不是一步完成的，分两个或多个阶段完成。先执行第一阶段然后转而执行其    他任务，等准备好了再回头执行第二阶段。</p>
 
           
         
